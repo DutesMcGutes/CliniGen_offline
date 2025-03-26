@@ -1,5 +1,6 @@
 import streamlit as st
 from core.protocol_generator import generate_structured_protocol
+from core.query_engine import run as run_query  # updated to tutorial-compliant method
 from utils.file_exporter import (
     save_structured_protocol_as_docx,
     save_structured_protocol_as_pdf,
@@ -51,7 +52,6 @@ if mode == "Generate Trial Protocol":
 
         protocol = st.session_state["protocol"]
 
-        # Editable Sections with Numbered Headings
         def editable_section(number, title, key, default):
             st.markdown(f"### {number}. {title}")
             content = st_quill(value=default, html=False, key=key)
@@ -84,18 +84,41 @@ if mode == "Generate Trial Protocol":
         st.markdown("### Download Protocol")
 
         docx_path = save_structured_protocol_as_docx(edited)
-        pdf_path = save_structured_protocol_as_pdf(edited)
+       # pdf_path = save_structured_protocol_as_pdf(edited)
         json_path = save_protocol_as_json(st.session_state["inputs"], edited)
 
         with open(docx_path, "rb") as docx_file:
             st.download_button("📄 Download DOCX", docx_file, file_name="structured_protocol.docx")
 
-        with open(pdf_path, "rb") as pdf_file:
-            st.download_button("📄 Download PDF", pdf_file, file_name="structured_protocol.pdf")
+      # with open(pdf_path, "rb") as pdf_file:
+      #      st.download_button("📄 Download PDF", pdf_file, file_name="structured_protocol.pdf")
 
         with open(json_path, "rb") as json_file:
             st.download_button("📄 Download JSON", json_file, file_name="structured_protocol.json")
 
-# === Placeholder for Q&A Mode ===
+# === CLINICAL TRIAL Q&A MODE (tutorial-compliant)
 else:
-    st.subheader("🧪 Clinical Trials Q&A coming soon...")
+    st.subheader("Ask a Question About Clinical Trials")
+
+    query = st.text_input("Enter your question:", placeholder="e.g. Are there trials studying CAR NK cells for obesity?")
+
+    if st.button("Submit Query") and query.strip():
+        with st.spinner("Querying ClinicalTrials.gov and summarizing..."):
+            result = run_query(query)
+
+            if hasattr(result, "answer"):
+                st.markdown("### ✅ Answer")
+                st.write(result.answer)
+
+                if hasattr(result, "contexts") and result.contexts:
+                    st.markdown("### 📚 Sources")
+                    for context in result.contexts:
+                        try:
+                            docname = context.doc.docname if context.doc else "Unknown"
+                            st.write(f"- {docname}")
+                        except Exception:
+                            st.write("- [Unnamed source]")
+                else:
+                    st.info("No sources returned.")
+            else:
+                st.warning(result.get("message", "No matching trials found or failed to answer."))

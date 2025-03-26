@@ -2,13 +2,13 @@ from fpdf import FPDF
 from docx import Document
 import json
 import os
+import re
 
 FONT_REGULAR = os.path.join(os.path.dirname(__file__), "DejaVuSans.ttf")
 FONT_BOLD = os.path.join(os.path.dirname(__file__), "DejaVuSans-Bold.ttf")
 
 def parse_protocol_sections(text: str):
     """Flexible parser for structured output."""
-    import re
     sections = []
     current_title = None
     current_body = []
@@ -93,6 +93,8 @@ class UnicodePDF(FPDF):
         super().__init__()
         self.add_page()
         self.set_auto_page_break(auto=True, margin=15)
+        self.set_left_margin(10)
+        self.set_right_margin(10)
         self.add_font("DejaVu", "", FONT_REGULAR, uni=True)
         self.add_font("DejaVu", "B", FONT_BOLD, uni=True)
         self.set_font("DejaVu", size=12)
@@ -104,9 +106,19 @@ def save_structured_protocol_as_pdf(protocol: dict, filename: str = "structured_
         pdf.set_font("DejaVu", "B", 14)
         pdf.multi_cell(0, 10, title)
         pdf.set_font("DejaVu", "", 12)
+
+        # Break large lines safely
         for line in content.split("\n"):
-            pdf.multi_cell(0, 8, line)
+            # If any line is too long without spaces, manually insert breaks
+            safe_line = re.sub(r'([^\s]{60})(?=[^\s])', r'\1\n', line)
+            try:
+                pdf.multi_cell(0, 8, safe_line)
+            except Exception as e:
+                pdf.multi_cell(0, 8, "[Line could not be rendered]")
+                print(f"[PDF Line Error] in section '{title}': {e}")
+
         pdf.ln(4)
+
 
     add_section("Title", protocol["title"])
     add_section("Background", protocol["background"])
