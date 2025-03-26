@@ -42,7 +42,7 @@ Example Use Cases
 ---
 
 ### 3. **Numbered Section Display**
-> 📑 Each section is rendered with a numbered heading:
+> Each section is rendered with a numbered heading:
 1. Title
 2. Background
 ...
@@ -53,7 +53,7 @@ This helps align the output to ICH-GCP structure and makes review easier for col
 ---
 
 ### 4. **DOCX, PDF, and JSON Export**
-> 📤 Generate ready-to-use protocol files from your session.
+> Generate ready-to-use protocol files from your session.
 
 - **DOCX**: Microsoft Word–compatible, with heading styles and spacing
 - **PDF**: Unicode-safe (supports characters like μg, ≥, ±); formatted using DejaVuSans
@@ -64,7 +64,7 @@ All generated files are saved temporarily in `/tmp/` to support Streamlit Cloud 
 ---
 
 ### 5. **Prompt Quality + Cleanup**
-> 🔬 All prompts use formal, regulatory-style language. Responses are post-processed to:
+> All prompts use formal, regulatory-style language. Responses are post-processed to:
 - Strip speculative or apologetic AI text
 - Enforce clean, concise formatting
 - Remove unnecessary filler like "In conclusion..." or "I do not have access..."
@@ -74,7 +74,7 @@ The result is output that looks closer to what you'd find in a real protocol.
 ---
 
 ### 6. **Speed + Modularity**
-> 🚀 Because each section is generated separately, CliniGen:
+> Because each section is generated separately, CliniGen:
 - Runs quickly
 - Recovers gracefully from partial errors
 - Can support “regen just this section” workflows in the future
