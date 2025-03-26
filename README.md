@@ -1,4 +1,4 @@
-# 🧬 CliniGen: Structured Clinical Trial Protocol Generator
+# CliniGen: Structured Clinical Trial Protocol Generator
 
 CliniGen is a fast, editable, and exportable app for generating full clinical trial protocols using GPT-4 Turbo. Unlike typical AI text generators, CliniGen produces sectioned content tailored to trial phase, population, endpoints, and location — structured to match real-world protocols like those used in regulatory and investigator-initiated studies.
 
@@ -6,10 +6,10 @@ Built with [Streamlit](https://streamlit.io), OpenAI GPT-4, and rich export tool
 
 ---
 
-## ✨ Key Features (With How They Work)
+## Key Features (With How They Work)
 
 ### 1. **Structured Protocol Generation**
-> 🧠 Instead of a long blob of text, CliniGen builds a protocol as a structured Python dictionary with 14 core fields:
+> Instead of a long blob of text, CliniGen builds a protocol as a structured Python dictionary with 14 core fields:
 - Title
 - Background
 - Rationale
@@ -98,7 +98,7 @@ pip install -r requirements.txt
 
 ### Project File Tree
 
-ClinicGen/
+CliniGen/
 ├── app.py
 ├── core/
 │   └── protocol_generator.py
