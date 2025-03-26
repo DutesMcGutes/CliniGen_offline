@@ -1,3 +1,4 @@
+# REMOVED: Query Mode, PDF Generator
 # CliniGen: Structured Clinical Trial Protocol Generator
 
 CliniGen is a fast, editable, and exportable app for generating full clinical trial protocols using GPT-4 Turbo. Unlike typical AI text generators, CliniGen produces sectioned content tailored to trial phase, population, endpoints, and location — structured to match real-world protocols like those used in regulatory and investigator-initiated studies.
