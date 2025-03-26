@@ -12,7 +12,7 @@ import pandas as pd
 st.set_page_config(page_title="CliniGen", layout="wide")
 st.title("CliniGen")
 
-mode = st.sidebar.radio("Choose a mode", ["Generate Trial Protocol", "Query Clinical Trials"], index=0)
+mode = st.sidebar.radio("Choose a mode", ["Generate Trial Protocol"], index=0)
 
 # === STRUCTURED PROTOCOL BUILDER ===
 if mode == "Generate Trial Protocol":
