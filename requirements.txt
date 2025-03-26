@@ -1,0 +1,8 @@
+streamlit
+pandas
+python-docx
+fpdf2
+python-dotenv
+git+https://github.com/Future-House/paper-qa.git
+openai>=1.0.0
+streamlit-quill
